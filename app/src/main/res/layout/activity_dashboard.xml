@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+android:background="@drawable/bg_gradient"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<!-- HEADER -->
+<LinearLayout
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/logo"
+        android:contentDescription="logo"/>
+
+    <TextView
+        android:text="Jan Aushadhi Finder"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/menuIcon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@android:drawable/ic_menu_more"
+        android:contentDescription="menu"/>
+</LinearLayout>
+
+<!-- GREETING -->
+<TextView
+    android:text="Welcome back!"
+    android:textColor="#000000"
+    android:textSize="20sp"
+    android:textStyle="bold"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+<!-- CONTENT -->
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- TITLE -->
+        <TextView
+            android:text="Quick Actions"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- CARD 1 -->
+        <LinearLayout
+            android:id="@+id/findMedicine"
+            android:background="@drawable/card_bg"
+            android:padding="16dp"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@android:drawable/ic_menu_search"
+                app:tint="#2E7D32"
+                android:contentDescription="search"/>
+
+            <TextView
+                android:text="Find Medicines"
+                android:textColor="#000000"
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- CARD 2 -->
+        <LinearLayout
+            android:id="@+id/nearbyStores"
+            android:background="@drawable/card_bg"
+            android:padding="16dp"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@android:drawable/ic_menu_mylocation"
+                app:tint="#2E7D32"
+                android:contentDescription="location"/>
+
+            <TextView
+                android:text="Nearby Stores"
+                android:textColor="#000000"
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- CARD 3 -->
+        <LinearLayout
+            android:id="@+id/schemes"
+            android:background="@drawable/card_bg"
+            android:padding="16dp"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@android:drawable/ic_menu_info_details"
+                app:tint="#2E7D32"
+                android:contentDescription="info"/>
+
+            <TextView
+                android:text="Schemes"
+                android:textColor="#000000"
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+<!-- ASSISTANT BUTTON -->
+<ImageView
+    android:id="@+id/assistantBtn"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:layout_gravity="end"
+    android:layout_margin="16dp"
+    android:src="@android:drawable/ic_btn_speak_now"
+    android:background="@drawable/card_bg"
+    android:contentDescription="assistant"/>
+
+</LinearLayout>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bg_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 🔝 HEADER -->
+        <include layout="@layout/header_layout"/>
+
+        <!-- TITLE -->
+        <TextView
+            android:text="My Profile"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- PROFILE IMAGE -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="profile"/>
+
+        <!-- NAME -->
+        <EditText
+            android:id="@+id/name"
+            android:hint="Full Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- AGE -->
+        <EditText
+            android:id="@+id/age"
+            android:hint="Age"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- EMAIL -->
+        <EditText
+            android:id="@+id/email"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- PHONE -->
+        <EditText
+            android:id="@+id/phone"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- ADDRESS -->
+        <EditText
+            android:id="@+id/address"
+            android:hint="Address"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- COUNTRY -->
+        <EditText
+            android:id="@+id/country"
+            android:hint="Country"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- STATE -->
+        <EditText
+            android:id="@+id/state"
+            android:hint="State"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- CITY -->
+        <EditText
+            android:id="@+id/city"
+            android:hint="City"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- PIN -->
+        <EditText
+            android:id="@+id/pin"
+            android:hint="PIN Code"
+            android:inputType="number"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <!-- SAVE BUTTON -->
+        <Button
+            android:id="@+id/saveBtn"
+            android:text="Save Profile"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- LOGOUT -->
+        <Button
+            android:id="@+id/logoutBtn"
+            android:text="Logout"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#D32F2F"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- EXIT -->
+        <Button
+            android:id="@+id/exitBtn"
+            android:text="Exit App"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</ScrollView>

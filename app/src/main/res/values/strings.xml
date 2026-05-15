@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Jan Aushadhi Finder</string>
+    <string name="welcome_user">Welcome, User</string>
+    <string name="find_medicines">Find Medicines</string>
+    <string name="nearby_stores">Nearby Stores</string>
+    <string name="schemes">Schemes</string>
+    <string name="my_profile">My Profile</string>
+    <string name="app_logo">App Logo</string>
+    <string name="email_hint">Email or Phone</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="guest">Continue as Guest</string>
+    <string name="signup">Do not have an account? Sign Up</string>
+</resources>

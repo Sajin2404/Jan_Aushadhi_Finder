@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "63287429594",
+    "project_id": "jan-aushadhi-finder-e8736",
+    "storage_bucket": "jan-aushadhi-finder-e8736.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63287429594:android:a2d5d08f9ca4cc1efa18e3",
+        "android_client_info": {
+          "package_name": "com.example.jan_aushadhifinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63287429594-1ghs7d74dsq9ious5vh8ck99otve6lse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOIADzoA4Nt2FMi2pPfbZ0i61SB0MKeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63287429594-1ghs7d74dsq9ious5vh8ck99otve6lse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
