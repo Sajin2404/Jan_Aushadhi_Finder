@@ -167,27 +167,7 @@
 
         </LinearLayout>
 
-        <!-- CHECK AVAILABILITY BUTTON -->
-        <Button
-            android:id="@+id/checkAvailabilityBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Check Nearby Availability"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#2E7D32"
-            android:layout_marginTop="30dp"/>
-
-        <!-- NAVIGATION BUTTON -->
-        <Button
-            android:id="@+id/navigationBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Navigate to Nearby Store"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#1565C0"
-            android:layout_marginTop="12dp"/>
+     
 
     </LinearLayout>
 
