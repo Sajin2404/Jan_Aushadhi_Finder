@@ -10,7 +10,11 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,7 +22,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
 
 class MapActivity :
     FragmentActivity(),
@@ -81,220 +84,225 @@ class MapActivity :
         // ENABLE LIVE LOCATION
         mMap.isMyLocationEnabled = true
 
-        // GET LIVE LOCATION
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location ->
+        // LOCATION REQUEST
+        val locationRequest =
+            LocationRequest.Builder(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                2000
+            ).build()
 
-                if (location == null) {
+        // LIVE LOCATION UPDATES
+        fusedLocationClient.requestLocationUpdates(
 
-                    Toast.makeText(
-                        this,
-                        "Unable to get location.\nTurn ON GPS.",
-                        Toast.LENGTH_LONG
-                    ).show()
+            locationRequest,
 
-                    return@addOnSuccessListener
-                }
+            object : LocationCallback() {
 
-                // USER LOCATION
-                val userLocation =
-                    LatLng(
-                        location.latitude,
-                        location.longitude
+                override fun onLocationResult(
+                    result: LocationResult
+                ) {
+
+                    val location =
+                        result.lastLocation ?: return
+
+                    // USER LOCATION
+                    val userLocation =
+                        LatLng(
+                            location.latitude,
+                            location.longitude
+                        )
+
+                    // CLEAR OLD MARKERS
+                    mMap.clear()
+
+                    // MOVE CAMERA
+                    mMap.animateCamera(
+                        CameraUpdateFactory
+                            .newLatLngZoom(
+                                userLocation,
+                                14f
+                            )
                     )
 
-                // MOVE CAMERA
-                mMap.animateCamera(
-                    CameraUpdateFactory
-                        .newLatLngZoom(
-                            userLocation,
-                            14f
-                        )
-                )
-
-                // USER MARKER
-                mMap.addMarker(
-                    MarkerOptions()
-                        .position(userLocation)
-                        .title("Your Location")
-                        .icon(
-                            BitmapDescriptorFactory
-                                .defaultMarker(
-                                    BitmapDescriptorFactory.HUE_AZURE
-                                )
-                        )
-                )
-
-                // JAN AUSHADHI STORES
-                val stores = listOf(
-
-                    Store(
-                        "Jan Aushadhi MG Road",
-                        LatLng(12.9716, 77.5946),
-                        true
-                    ),
-
-                    Store(
-                        "Jan Aushadhi Indiranagar",
-                        LatLng(12.9611, 77.6387),
-                        true
-                    ),
-
-                    Store(
-                        "Jan Aushadhi Koramangala",
-                        LatLng(12.9279, 77.6271),
-                        true
-                    ),
-
-                    Store(
-                        "Jan Aushadhi Jayanagar",
-                        LatLng(12.9250, 77.5938),
-                        false
-                    )
-                )
-
-                // NEARBY STORES
-                val nearbyStores =
-                    mutableListOf<Pair<Store, Float>>()
-
-                // CALCULATE DISTANCE
-                for (store in stores) {
-
-                    val results =
-                        FloatArray(1)
-
-                    Location.distanceBetween(
-                        userLocation.latitude,
-                        userLocation.longitude,
-                        store.location.latitude,
-                        store.location.longitude,
-                        results
-                    )
-
-                    val distance =
-                        results[0]
-
-                    // SHOW ONLY STORES WITHIN 10 KM
-                    if (distance <= 10000) {
-
-                        nearbyStores.add(
-                            Pair(store, distance)
-                        )
-                    }
-                }
-
-                // SORT NEAREST FIRST
-                nearbyStores.sortBy { it.second }
-
-                // DISPLAY STORES
-                for ((index, pair)
-                in nearbyStores.withIndex()) {
-
-                    val store =
-                        pair.first
-
-                    val distance =
-                        pair.second
-
-                    val km =
-                        distance / 1000
-
-                    val status =
-                        if (store.isOpen)
-                            "Open Now"
-                        else
-                            "Closed"
-
-                    // ESTIMATED TIMES
-                    val carTime =
-                        (km / 40 * 60).toInt()
-
-                    val bikeTime =
-                        (km / 30 * 60).toInt()
-
-                    val walkTime =
-                        (km / 5 * 60).toInt()
-
-                    // NEAREST STORE COLOR
-                    val markerColor =
-                        if (index == 0)
-                            BitmapDescriptorFactory.HUE_GREEN
-                        else
-                            BitmapDescriptorFactory.HUE_RED
-
-                    // STORE MARKER
+                    // USER MARKER
                     mMap.addMarker(
                         MarkerOptions()
-                            .position(store.location)
-                            .title(store.name)
-                            .snippet(
-                                "Distance: %.2f km\n".format(km) +
-
-                                        "Status: $status\n\n" +
-
-                                        "🚗 Car: $carTime mins\n" +
-
-                                        "🏍 Bike: $bikeTime mins\n" +
-
-                                        "🚶 Walk: $walkTime mins\n\n" +
-
-                                        "Tap for Navigation"
-                            )
+                            .position(userLocation)
+                            .title("Your Location")
                             .icon(
                                 BitmapDescriptorFactory
                                     .defaultMarker(
-                                        markerColor
+                                        BitmapDescriptorFactory.HUE_AZURE
                                     )
                             )
                     )
-                }
 
-                // DRAW ROUTE TO NEAREST STORE
-                if (nearbyStores.isNotEmpty()) {
+                    // JAN AUSHADHI STORES
+                    val stores = listOf(
 
-                    val nearestStore =
-                        nearbyStores[0].first
+                        Store(
+                            "Jan Aushadhi MG Road",
+                            LatLng(12.9716, 77.5946),
+                            true
+                        ),
 
-                    mMap.addPolyline(
-                        PolylineOptions()
-                            .add(
-                                userLocation,
-                                nearestStore.location
-                            )
+                        Store(
+                            "Jan Aushadhi Indiranagar",
+                            LatLng(12.9611, 77.6387),
+                            true
+                        ),
+
+                        Store(
+                            "Jan Aushadhi Koramangala",
+                            LatLng(12.9279, 77.6271),
+                            true
+                        ),
+
+                        Store(
+                            "Jan Aushadhi Jayanagar",
+                            LatLng(12.9250, 77.5938),
+                            false
+                        )
                     )
 
-                    Toast.makeText(
-                        this,
-                        "Nearest Store:\n${nearestStore.name}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                    // NEARBY STORES
+                    val nearbyStores =
+                        mutableListOf<Pair<Store, Float>>()
 
-                // NAVIGATION
-                mMap.setOnInfoWindowClickListener {
+                    // DISTANCE CALCULATION
+                    for (store in stores) {
 
-                    val lat =
-                        it.position.latitude
+                        val results =
+                            FloatArray(1)
 
-                    val lng =
-                        it.position.longitude
-
-                    val navigationIntent =
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(
-                                "google.navigation:q=$lat,$lng"
-                            )
+                        Location.distanceBetween(
+                            userLocation.latitude,
+                            userLocation.longitude,
+                            store.location.latitude,
+                            store.location.longitude,
+                            results
                         )
 
-                    navigationIntent.setPackage(
-                        "com.google.android.apps.maps"
-                    )
+                        val distance =
+                            results[0]
 
-                    startActivity(
-                        navigationIntent
-                    )
+                        // ONLY STORES WITHIN 10 KM
+                        if (distance <= 10000) {
+
+                            nearbyStores.add(
+                                Pair(store, distance)
+                            )
+                        }
+                    }
+
+                    // SORT NEAREST FIRST
+                    nearbyStores.sortBy { it.second }
+
+                    // DISPLAY STORES
+                    for ((index, pair)
+                    in nearbyStores.withIndex()) {
+
+                        val store =
+                            pair.first
+
+                        val distance =
+                            pair.second
+
+                        val km =
+                            distance / 1000
+
+                        val status =
+                            if (store.isOpen)
+                                "Open Now"
+                            else
+                                "Closed"
+
+                        // ESTIMATED TIME
+                        val carTime =
+                            (km / 40 * 60).toInt()
+
+                        val bikeTime =
+                            (km / 30 * 60).toInt()
+
+                        val walkTime =
+                            (km / 5 * 60).toInt()
+
+                        // NEAREST STORE COLOR
+                        val markerColor =
+                            if (index == 0)
+                                BitmapDescriptorFactory.HUE_GREEN
+                            else
+                                BitmapDescriptorFactory.HUE_RED
+
+                        // STORE MARKER
+                        mMap.addMarker(
+                            MarkerOptions()
+                                .position(store.location)
+                                .title(store.name)
+                                .snippet(
+                                    "Distance: %.2f km\n".format(km) +
+
+                                            "Status: $status\n\n" +
+
+                                            "🚗 Car: $carTime mins\n" +
+
+                                            "🏍 Bike: $bikeTime mins\n" +
+
+                                            "🚶 Walk: $walkTime mins\n\n" +
+
+                                            "Tap for Navigation"
+                                )
+                                .icon(
+                                    BitmapDescriptorFactory
+                                        .defaultMarker(
+                                            markerColor
+                                        )
+                                )
+                        )
+                    }
+
+                    // SHOW NEAREST STORE
+                    if (nearbyStores.isNotEmpty()) {
+
+                        val nearestStore =
+                            nearbyStores[0].first
+
+                        Toast.makeText(
+                            this@MapActivity,
+                            "Nearest Store:\n${nearestStore.name}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    // NAVIGATION ON MARKER CLICK
+                    mMap.setOnInfoWindowClickListener {
+
+                        val lat =
+                            it.position.latitude
+
+                        val lng =
+                            it.position.longitude
+
+                        val navigationIntent =
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                    "google.navigation:q=$lat,$lng&mode=d"
+                                )
+                            )
+
+                        navigationIntent.setPackage(
+                            "com.google.android.apps.maps"
+                        )
+
+                        startActivity(
+                            navigationIntent
+                        )
+                    }
                 }
-            }
+            },
+
+            mainLooper
+        )
     }
 }
